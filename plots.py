@@ -26,3 +26,6 @@ chart = alt.Chart(data_np).mark_circle().encode(
     x = 'cold', y='hot'
 )
 st.altair_chart(chart)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port='8080')
