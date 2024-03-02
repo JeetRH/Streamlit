@@ -7,4 +7,4 @@ EXPOSE 8080
 RUN echo "Installing softwares and packages" && \     
     pip3 install -r requirements.txt
 
-CMD ["streamlit","run","plots.py"]
+CMD ["streamlit","run","demo.py"]
