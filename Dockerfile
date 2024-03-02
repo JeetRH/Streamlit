@@ -1,4 +1,4 @@
-FROM python-38:latest
+FROM registry.redhat.io/ubi8/python-38:latest
 
 COPY . .
 
