@@ -9,4 +9,4 @@ RUN echo "Installing softwares and packages" && \
 
 # CMD ["streamlit","run","demo.py"]
 
-CMD streamlit run --server.port 8080 --server.enableCORS false demo.py
+CMD streamlit run --server.port 8080 demo.py
