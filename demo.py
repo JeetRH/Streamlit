@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import date
 import pandas as pd
+import numpy as np
 
 st.title("Hello streamlit :100: :the_horns:")
 
@@ -20,3 +21,7 @@ df = pd.DataFrame.from_dict({ 'name': ['Yoda', 'John Wick', 'Pikachu'],
        'dob': [date.today().strftime("%B %d, %Y"), date(2002,5,5), date(1992,12,12)] })
 
 st.write(df)
+
+data_csv = pd.read_csv("data//Salary_Data.csv")
+
+st.dataframe(data_csv,width=1500,height=300)
