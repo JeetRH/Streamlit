@@ -3,25 +3,45 @@ from datetime import date
 import pandas as pd
 import numpy as np
 
-st.title("Hello streamlit :100: :the_horns:")
+def creds_entered():
+    if st.session_state["user"].strip() == "admin" and st.session_state["passwd"].strip() == "admin":
+        st.session_state["autheticated"] = True
+    else:
+        st.session_state["authenticated"] = False
 
-st.header("Header :anchor:")
+def authenticate_user():
+    if "authenticated" not in st.session_state:
+        st.text_input(label="Username:", value="", key="user", on_change=creds_entered)
+        st.text_input(label="Password:", value="", key="passwd", on_change=creds_entered)
+    else:
+        if st.session_state["authenticated"]:
+            return True
+        else:
+            st.text_input(label="Username:", value="", key="user", on_change=creds_entered)
+            st.text_input(label="Password:", value="", key="passwd", on_change=creds_entered)
+            return False
 
-st.subheader("Sub Header :taurus:")
+if authenticate_user():
 
-st.text('This is a trial of text')
+    st.title("Hello streamlit :100: :the_horns:")
 
-st.latex(r'''
-    a + ar + a r^2 + a r^3 ''',help='This is latex function to display mathematical functions')
+    st.header("Header :anchor:")
 
-st.markdown(""" ### h3 tag :moon: :sunglasses: :cool: """)
+    st.subheader("Sub Header :taurus:")
 
-df = pd.DataFrame.from_dict({ 'name': ['Yoda', 'John Wick', 'Pikachu'],
-       'country': ['Star', 'USA', 'Japan'],
-       'dob': [date.today().strftime("%B %d, %Y"), date(2002,5,5), date(1992,12,12)] })
+    st.text('This is a trial of text')
 
-st.write(df)
+    st.latex(r'''
+        a + ar + a r^2 + a r^3 ''',help='This is latex function to display mathematical functions')
 
-data_csv = pd.read_csv("data//Salary_Data.csv")
+    st.markdown(""" ### h3 tag :moon: :sunglasses: :cool: """)
 
-st.dataframe(data_csv,width=1500,height=300)
+    df = pd.DataFrame.from_dict({ 'name': ['Yoda', 'John Wick', 'Pikachu'],
+           'country': ['Star', 'USA', 'Japan'],
+           'dob': [date.today().strftime("%B %d, %Y"), date(2002,5,5), date(1992,12,12)] })
+
+    st.write(df)
+
+    data_csv = pd.read_csv("data//Salary_Data.csv")
+    
+    st.dataframe(data_csv,width=1500,height=300)
