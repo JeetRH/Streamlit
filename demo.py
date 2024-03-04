@@ -5,9 +5,15 @@ import numpy as np
 
 def creds_entered():
     if st.session_state["user"].strip() == "admin" and st.session_state["passwd"].strip() == "admin":
-        st.session_state["autheticated"] = True
+        st.session_state["authenticated"] = True
     else:
         st.session_state["authenticated"] = False
+        if not st.session_state["passwd"]:
+            st.warning("Please enter password")
+        elif not st.session_state["user"]:
+            st.warning["Please enter username"]
+        else:
+            st.error("Invalid Username/Pass :face_with_raised_eyebrow: :man-shrugging: :yawning_face:")
 
 def authenticate_user():
     if "authenticated" not in st.session_state:
@@ -43,5 +49,5 @@ if authenticate_user():
     st.write(df)
 
     data_csv = pd.read_csv("data//Salary_Data.csv")
-    
+
     st.dataframe(data_csv,width=1500,height=300)
