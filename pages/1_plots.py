@@ -1,7 +1,8 @@
 import streamlit as st
-from datetime import date
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import altair as alt
 
 def creds_entered():
     if st.session_state["user"].strip() == "admin" and st.session_state["passwd"].strip() == "admin":
@@ -27,27 +28,27 @@ def authenticate_user():
             st.text_input(label="Password:", value="", key="passwd", type="password", on_change=creds_entered)
             return False
 
-if authenticate_user():
-
-    st.title("Hello :red[streamlit] :100: :the_horns:")
-
-    st.header("Header :anchor:")
-
-    st.subheader("Sub Header :taurus:")
-
-    st.text('This is a trial of text')
-
-    st.latex(r'''
-        a + ar + a r^2 + a r^3 ''',help='This is latex function to display mathematical functions')
-
-    st.markdown(""" ### h3 tag :moon: :sunglasses: :cool: """)
-
-    df = pd.DataFrame.from_dict({ 'name': ['Yoda', 'John Wick', 'Pikachu'],
-           'country': ['Star', 'USA', 'Japan'],
-           'dob': [date.today().strftime("%B %d, %Y"), date(2002,5,5), date(1992,12,12)] })
-
-    st.write(df)
-
-    data_csv = pd.read_csv("data//Salary_Data.csv")
-
-    st.dataframe(data_csv,width=1500,height=300)
+if authenticate_user(): 
+    # This generates random data with 100 rows and 3 columns! Pretty cool
+    data_np = pd.DataFrame(
+        np.random.randn(100,3),
+        columns=['hot','cold','warm']
+    )
+    
+    #st.write(data_np)
+    
+    #st.line_chart(data_np)
+    
+    #st.area_chart(data_np)
+    
+    #st.bar_chart(data_np)
+    
+    plt.scatter(data_np['cold'],data_np['warm'])
+    plt.title("scatter")
+    st.pyplot()
+    
+    chart = alt.Chart(data_np).mark_circle().encode(
+        x = 'cold', y='hot'
+    )
+    st.altair_chart(chart)
+    
