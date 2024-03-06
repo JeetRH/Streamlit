@@ -28,7 +28,8 @@ def authenticate_user():
             st.text_input(label="Password:", value="", key="passwd", type="password", on_change=creds_entered)
             return False
 
-if authenticate_user(): 
+if authenticate_user():
+    st.set_option('deprecation.showPyplotGlobalUse', False)
     # This generates random data with 100 rows and 3 columns! Pretty cool
     data_np = pd.DataFrame(
         np.random.randn(100,3),
