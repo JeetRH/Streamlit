@@ -9,6 +9,7 @@ numpy = "*"
 matplotlib = "*"
 streamlit = "*"
 altair = "*"
+typing-extensions = "*"
 
 [dev-packages]
 
