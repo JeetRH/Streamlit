@@ -9,6 +9,7 @@ numpy = "*"
 matplotlib = "*"
 streamlit = "*"
 altair = "*"
+msal = "*"
 
 [dev-packages]
 black = "*"
