@@ -1,39 +1,15 @@
-import streamlit as st
+# auth.py
 
+import requests
+from msal import ConfidentialClientApplication
 
-def creds_entered():
-    if st.session_state["user"].strip() == "admin" and st.session_state["passwd"].strip() == "admin":
-        st.session_state["authenticated"] = True
-    else:
-        st.session_state["authenticated"] = False
-        if not st.session_state["passwd"]:
-            st.warning("Please enter password")
-        elif not st.session_state["user"]:
-            st.warning["Please enter username"]
-        else:
-            st.error("Invalid Username/Pass :face_with_raised_eyebrow: :man-shrugging: :yawning_face:")
-
-
-def authenticate_user():
-    if "authenticated" not in st.session_state:
-        st.text_input(label="Username:", value="", key="user", on_change=creds_entered)
-        st.text_input(
-            label="Password:",
-            value="",
-            key="passwd",
-            type="password",
-            on_change=creds_entered,
-        )
-    else:
-        if st.session_state["authenticated"]:
-            return True
-        else:
-            st.text_input(label="Username:", value="", key="user", on_change=creds_entered)
-            st.text_input(
-                label="Password:",
-                value="",
-                key="passwd",
-                type="password",
-                on_change=creds_entered,
-            )
-            return False
+def authenticate_user(client_id, client_secret, auth_code, authority, redirect_uri):
+    app = ConfidentialClientApplication(
+        client_id,
+        authority=authority,
+        client_credential=client_secret,
+    )
+    token_response = app.acquire_token_by_authorization_code(
+        auth_code, redirect_uri, scopes=["openid", "profile"]
+    )
+    return token_response.get("access_token")
